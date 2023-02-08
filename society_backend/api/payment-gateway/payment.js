@@ -1,10 +1,12 @@
 
 
-const PUBLISHABLE_KEY = "pk_test_51MWzdISAP0cb61v5rv5fnOPwP560bWqZHnqc9gnwsRNFNDSl5olsPkv2MW03sGTR6n6IT27fbFnOpaT60qp1q3zY00ttnvrVtx"
+//const PUBLISHABLE_KEY = "pk_test_51MWzdISAP0cb61v5rv5fnOPwP560bWqZHnqc9gnwsRNFNDSl5olsPkv2MW03sGTR6n6IT27fbFnOpaT60qp1q3zY00ttnvrVtx"
 const SECRET_KEY = "sk_test_51MWzdISAP0cb61v5XVaKokWwShqXFUBmR62YKGtrhOdl3Oli6SdYoN9VCT1oQSqXmLb4JS9szAA6dOUFxPcqeB6o00ieo6zAfo"
 const stripe = require('stripe')(SECRET_KEY)
 const express=require('express')
 const app = express()
+const {societies} = require('../../db_connect')
+
 const verifyToken = require('../../jwt')
 
 const token={
@@ -27,7 +29,7 @@ const token={
 }
 
 
-app.post('/pay', function (req, res) {
+app.post('/pay',verifyToken, function (req, res) {
     stripe.customers.create({
         email: "karan@gmail.com",
         name: 'karan Patel',
@@ -40,8 +42,7 @@ app.post('/pay', function (req, res) {
             country: 'India',
         }
     })
-        .then((customer) => {
-
+    .then((customer) => {
             return stripe.charges.create({
                 amount: 5000,     // Charging Rs 25
                 description: 'Web Development Product',

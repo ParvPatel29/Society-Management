@@ -17,8 +17,10 @@ const societies=sequelize.define('societies',{
         flatno:Sequelize.INTEGER,
         fname: Sequelize.STRING,
         lname: Sequelize.STRING,
-        mobileno:Sequelize.INTEGER
+        mobileno:Sequelize.INTEGER,
+        stripeid:Sequelize.STRING
 })
+
 sequelize.sync().then(()=>{
   console.log("Tables created in database successfully")
 }).catch(err=>{

@@ -9,7 +9,7 @@ module.exports={
             flatno : data.flatno,
             fname : data.fname,
             lname : data.lname,
-            mobileno:data.mobileno
+            mobileno:data.mobileno,
         })
         .then(ans=>{
             callback(null,ans)
