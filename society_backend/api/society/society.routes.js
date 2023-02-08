@@ -13,6 +13,6 @@ router.post('/create',verifyToken,create)
 router.get('/getAll',verifyToken,getAll)
 router.get('/getOne/:id',verifyToken,getOne)
 router.put('/update',verifyToken,update)
-router.delete('/delete/:id',verifyToken,deleteSocieties)
+// router.delete('/delete/:id',verifyToken,deleteSocieties)
 
 module.exports=router
