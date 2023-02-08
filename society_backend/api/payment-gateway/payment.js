@@ -29,7 +29,7 @@ const token={
 }
 
 
-app.post('/pay',verifyToken, function (req, res) {
+app.post('/pay', function (req, res) {
     stripe.customers.create({
         email: "karan@gmail.com",
         name: 'karan Patel',
