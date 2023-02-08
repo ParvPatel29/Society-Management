@@ -4,14 +4,14 @@ const app = express()
 const jwt = require('jsonwebtoken')
 const {user} = require('./db_connect')
 const route =require('./api/society/society.routes')
-
+const payment_route=require('./api/payment-gateway/payment')
 app.listen(3000,()=>{
     console.log("App is listening on 3000")
 })
 
 app.use(express.json())
 app.use('/api',route)
-
+app.use('/api',payment_route)
 
 
 app.post('/signup',(req, res)=>{

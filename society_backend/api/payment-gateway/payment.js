@@ -7,26 +7,43 @@ const express=require('express')
 const app = express()
 const verifyToken = require('../../jwt')
 
-app.post('/payment', function (req, res) {
+const token={
+  "id": "tok_1Guxxxxxxxxxxxxxx",
+  "object": "token",
+  "card": {
+    "id": "card_1Guxxxxxxxx",
+    "object": "card",
+    "brand": "Visa",
+    "last4": "4242",
+    "exp_month": 12,
+    "exp_year": 2023,
+    "name": "John Doe",
+    "country": "US"
+  },
+  "created": 1617735054,
+  "livemode": false,
+  "type": "card",
+  "used": false
+}
 
-    // Moreover you can take more details from user
-    // like Address, Name, etc from form
+
+app.post('/pay', function (req, res) {
     stripe.customers.create({
-        email: req.body.stripeEmail,
-        source: req.body.stripeToken,
-        name: 'Gourav Hammad',
+        email: "karan@gmail.com",
+        name: 'karan Patel',
+        source: "tok_visa_debit",
         address: {
             line1: 'TC 9/4 Old MES colony',
-            postal_code: '452331',
-            city: 'Indore',
-            state: 'Madhya Pradesh',
+            postal_code: '380081',
+            city: 'Ahmedabad',
+            state: 'Gujarat',
             country: 'India',
         }
     })
         .then((customer) => {
 
             return stripe.charges.create({
-                amount: 2500,     // Charging Rs 25
+                amount: 5000,     // Charging Rs 25
                 description: 'Web Development Product',
                 currency: 'INR',
                 customer: customer.id
@@ -39,3 +56,5 @@ app.post('/payment', function (req, res) {
             res.send(err)       // If some error occurs
         });
 })
+
+module.exports=app
