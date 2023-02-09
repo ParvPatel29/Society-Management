@@ -2,15 +2,15 @@ const express = require('express');
 const bcrypt = require("bcrypt")
 const app = express()
 const jwt = require('jsonwebtoken')
-const {user} = require('./db_connect')
-const route =require('./api/society/society.routes')
+const {User} = require('./db_connect')
+const society_route =require('./api/society/society.routes')
 const payment_route=require('./api/payment-gateway/payment')
 app.listen(3000,()=>{
     console.log("App is listening on 3000")
 })
 
 app.use(express.json())
-app.use('/api',route)
+app.use('/api',society_route)
 app.use('/api',payment_route)
 
 
@@ -19,10 +19,9 @@ app.post('/signup',(req, res)=>{
    let password=bcrypt.hash(req.body.password,saltRounds)
    .then(hashedPassword=>{
         console.log(hashedPassword)
-        user.create({
-        name:req.body.name,
-        email:req.body.email,
-        password:hashedPassword
+        User.create({
+        Email:req.body.email,
+        Password:hashedPassword
         })
         .then(user=>{
           res.json(user)
@@ -39,11 +38,11 @@ app.post('/signup',(req, res)=>{
 })
 
 app.post('/login',(req,res)=>{
-    user.findOne({where:{email:req.body.email}}).then(user=>{
+    User.findOne({where:{Email:req.body.email}}).then(user=>{
                 if(!user){
                     return res.status(400).json({ error: 'User not found' });
         }
-      bcrypt.compare(req.body.password, user.password)
+      bcrypt.compare(req.body.password, user.Password)
       .then(result => {
         if(result){
           const token = jwt.sign({ id: user.id }, "secret_key");

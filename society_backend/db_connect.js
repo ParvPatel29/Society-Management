@@ -3,20 +3,17 @@ const sequelize = new Sequelize('Society','root','',{
     host:'localhost',
     dialect:'mysql'
 })
- const Flat = sequelize.define('Flat', {
-  FlatNo: {
-    type: Sequelize.INTEGER,
-    primaryKey: true
-  }
-});
 
 const User = sequelize.define('User', {
-  UserName: {
+  Email: {
     type: Sequelize.STRING,
     primaryKey: true
   },
-  Email: {
-    type: Sequelize.STRING
+  UserName: {
+    type: Sequelize.STRING,
+  },
+  FlatNo: {
+    type: Sequelize.INTEGER,
   },
   MobileNo: {
     type: Sequelize.STRING
@@ -32,31 +29,32 @@ const User = sequelize.define('User', {
 const Car = sequelize.define('Car', {
   CarName: {
     type: Sequelize.STRING,
-    primaryKey: true
   },
   CarNo:{
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    primaryKey: true
+  },
+  FlatNo: {
+    type: Sequelize.INTEGER,
   }
 });
 
 const Maintenance = sequelize.define('Maintenance', {
   Month: {
     type: Sequelize.STRING,
-    primaryKey: true
   },
   Amount: {
     type: Sequelize.INTEGER
   },
   stripeid:{
     type: Sequelize.STRING
+  },
+  FlatNo: {
+    type: Sequelize.INTEGER,
   }
 });
 
-Flat.hasMany(User, { foreignKey: 'FlatNo', as: 'Residents' });
-Flat.hasMany(Car, { foreignKey: 'FlatNo', as: 'Cars' });
-Maintenance.belongsTo(Flat, { foreignKey: 'FlatNo' });
-Maintenance.belongsTo(User, { foreignKey: 'DueBy' });
-User.hasMany(Maintenance, { foreignKey: 'DueBy', as: 'Maintenances' });
+
 
 
 sequelize.sync().then(()=>{
@@ -65,10 +63,7 @@ sequelize.sync().then(()=>{
     console.log(err)
 })
 module.exports={
-   Flat,
    User,
    Car,
    Maintenance
 }
-
-//module.exports=User
