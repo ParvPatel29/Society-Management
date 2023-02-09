@@ -24,6 +24,21 @@ module.exports={
             })
         })
     },
+     createCar:(req,res)=>{
+        console.log(req.body)
+        const body = req.body
+        createCar(body,(error,results)=>{
+            if(error){
+              return res.json({
+                error:error,
+                data:"database connection error"
+              })
+            }
+            return res.status(200).json({
+                data:results
+            })
+        })
+    },
     getAll:(req,res)=>{
       const body = req.body
       getAll(body,(error,results)=>{

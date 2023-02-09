@@ -1,5 +1,6 @@
 const {
     createUser,
+    createCar,
     getAll,
     getOne,
     getAllByFlat,
@@ -13,10 +14,11 @@ const express = require('express')
 const router=express.Router()
 
 router.post('/createUser',verifyToken,createUser)
+router.post('/createCar',verifyToken,createCar)
 router.get('/getAll',verifyToken,getAll)
-router.get('/getAllByFlat',verifyToken,getAllByFlat)
-router.get('/getAllByCarName',verifyToken,getAllByCarName)
-router.get('/getAllByCarNo',verifyToken,getAllByCarNo)
+router.get('/getAllByFlat/:id',verifyToken,getAllByFlat)
+router.get('/getAllByCarName/:id',verifyToken,getAllByCarName)
+router.get('/getAllByCarNo/:id',verifyToken,getAllByCarNo)
 router.get('/getOne/:id',verifyToken,getOne)
 router.put('/update',verifyToken,updateUser)
 router.delete('/delete/:id',verifyToken,deleteFlat)

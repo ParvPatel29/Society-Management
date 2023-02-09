@@ -23,8 +23,21 @@ module.exports={
             callback(err)
         })
     },
+     createCar: (data,callback)=>{
+        Car.create({
+            CarName : data.carname,
+            CarNo : data.carno,
+            FlatNo:data.flatno
+        })
+        .then(ans=>{
+           callback(null,ans)
+        })
+        .catch(err=>{
+            callback(err)
+        })
+    },
     getAll:(data,callback)=>{
-       societies.findAll({
+       User.findAll({
         })
         .then(ans=>{
             callback(null,ans)
@@ -34,7 +47,7 @@ module.exports={
         })
     },
     getAllByFlat:(data,callback)=>{
-       societies.findAll({
+       User.findAll({
             where:data.flatno
         })
         .then(ans=>{
@@ -45,7 +58,7 @@ module.exports={
         })
     },
     getOne:(data,callback)=>{
-       societies.findAll({
+       User.findAll({
             where:data.email
         })
         .then(ans=>{
@@ -56,7 +69,7 @@ module.exports={
         })
     },
     getAllByCarName:(data,callback)=>{
-       societies.findAll({
+       Car.findAll({
             where:data.carname
         })
         .then(ans=>{
@@ -67,7 +80,7 @@ module.exports={
         })
     },
     getAllByCarNo:(data,callback)=>{
-       societies.findAll({
+       Car.findAll({
             where:data.carno
         })
         .then(ans=>{
@@ -83,7 +96,8 @@ module.exports={
         if(data.lastname)updates.LastName=data.lname
         if(data.mobileno)updates.MobileNo=data.mobileno
         console.log(updates)
-        societies.update(updates
+
+        User.update(updates
         ,{where:{email:data.email}})
         .then(ans=>{
             callback(null,ans)
@@ -93,7 +107,7 @@ module.exports={
         })
     },
     deleteFlat:(data,callback)=>{
-       societies.destroy({where:{id:data}})
+       User.destroy({where:{id:data}})
         .then(ans=>{
             callback(null,ans)
         })
