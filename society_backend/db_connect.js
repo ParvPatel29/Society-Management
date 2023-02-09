@@ -43,6 +43,9 @@ const Maintenance = sequelize.define('Maintenance', {
   Month: {
     type: Sequelize.STRING,
   },
+  Email:{
+   type: Sequelize.STRING,
+  },
   Amount: {
     type: Sequelize.INTEGER
   },

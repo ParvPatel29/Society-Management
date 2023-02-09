@@ -23,6 +23,20 @@ module.exports={
             callback(err)
         })
     },
+    createPayment: (data,callback)=>{
+        Maintenance.create({
+            Email : data.email,
+            Month:data.month,
+            Amount:data.amount,
+            FlatNo:data.flatno
+        })
+        .then(ans=>{
+           callback(null,ans)
+        })
+        .catch(err=>{
+            callback(err)
+        })
+    },
      createCar: (data,callback)=>{
         Car.create({
             CarName : data.carname,

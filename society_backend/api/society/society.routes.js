@@ -1,5 +1,6 @@
 const {
     createUser,
+    createPayment,
     createCar,
     getAll,
     getOne,
@@ -15,6 +16,7 @@ const router=express.Router()
 
 router.post('/createUser',verifyToken,createUser)
 router.post('/createCar',verifyToken,createCar)
+router.post('/createPayment',verifyToken,createPayment)
 router.get('/getAll',verifyToken,getAll)
 router.get('/getAllByFlat/:id',verifyToken,getAllByFlat)
 router.get('/getAllByCarName/:id',verifyToken,getAllByCarName)
