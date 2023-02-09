@@ -1,25 +1,61 @@
 const  Sequelize  = require('sequelize');
-const sequelize = new Sequelize('db_sequelize','root','',{
+const sequelize = new Sequelize('Society','root','',{
     host:'localhost',
     dialect:'mysql'
 })
- const user=sequelize.define('user',{
-        name: Sequelize.STRING,
-        email: Sequelize.STRING,
-        password: Sequelize.STRING
-})
-const societies=sequelize.define('societies',{
-      id : {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
+
+const User = sequelize.define('User', {
+  Email: {
+    type: Sequelize.STRING,
     primaryKey: true
   },
-        flatno:Sequelize.INTEGER,
-        fname: Sequelize.STRING,
-        lname: Sequelize.STRING,
-        mobileno:Sequelize.INTEGER,
-        stripeid:Sequelize.STRING
-})
+  UserName: {
+    type: Sequelize.STRING,
+  },
+  FlatNo: {
+    type: Sequelize.INTEGER,
+  },
+  MobileNo: {
+    type: Sequelize.STRING
+  },
+  LastName: {
+    type: Sequelize.STRING
+  },
+  Password: {
+    type: Sequelize.STRING
+  }
+});
+
+const Car = sequelize.define('Car', {
+  CarName: {
+    type: Sequelize.STRING,
+  },
+  CarNo:{
+    type: Sequelize.STRING,
+    primaryKey: true
+  },
+  FlatNo: {
+    type: Sequelize.INTEGER,
+  }
+});
+
+const Maintenance = sequelize.define('Maintenance', {
+  Month: {
+    type: Sequelize.STRING,
+  },
+  Amount: {
+    type: Sequelize.INTEGER
+  },
+  stripeid:{
+    type: Sequelize.STRING
+  },
+  FlatNo: {
+    type: Sequelize.INTEGER,
+  }
+});
+
+
+
 
 sequelize.sync().then(()=>{
   console.log("Tables created in database successfully")
@@ -27,8 +63,7 @@ sequelize.sync().then(()=>{
     console.log(err)
 })
 module.exports={
-   user,
-   societies
+   User,
+   Car,
+   Maintenance
 }
-
-//module.exports=User

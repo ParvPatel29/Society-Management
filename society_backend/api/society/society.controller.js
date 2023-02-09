@@ -1,15 +1,33 @@
 const {
-    create,
+    createUser,
     getAll,
     getOne,
-    update,
-    deleteSocieties}=require('./society.service')
+    getAllByFlat,
+    getAllByCarName,
+    getAllByCarNo,
+    updateUser,
+    deleteFlat,}=require('./society.service')
 
 module.exports={
-    create:(req,res)=>{
+    createUser:(req,res)=>{
         console.log(req.body)
         const body = req.body
-        create(body,(error,results)=>{
+        createUser(body,(error,results)=>{
+            if(error){
+              return res.json({
+                error:error,
+                data:"database connection error"
+              })
+            }
+            return res.status(200).json({
+                data:results
+            })
+        })
+    },
+     createCar:(req,res)=>{
+        console.log(req.body)
+        const body = req.body
+        createCar(body,(error,results)=>{
             if(error){
               return res.json({
                 error:error,
@@ -35,6 +53,48 @@ module.exports={
             })
       })
     },
+    getAllByFlat:(req,res)=>{
+      const body = req.body
+      getAllByFlat(body,(error,results)=>{
+         if(error){
+              return res.json({
+                error:error,
+                data:"database connection error"
+              })
+            }
+            return res.status(200).json({
+                data:results
+            })
+      })
+    },
+    getAllByCarName:(req,res)=>{
+      const body = req.body
+      getAllByCarName(body,(error,results)=>{
+         if(error){
+              return res.json({
+                error:error,
+                data:"database connection error"
+              })
+            }
+            return res.status(200).json({
+                data:results
+            })
+      })
+    },
+    getAllByCarNo:(req,res)=>{
+      const body = req.body
+      getAllByCarNo(body,(error,results)=>{
+         if(error){
+              return res.json({
+                error:error,
+                data:"database connection error"
+              })
+            }
+            return res.status(200).json({
+                data:results
+            })
+      })
+    },
     getOne:(req,res)=>{
       const body = req.body
       getOne(body,(error,results)=>{
@@ -49,9 +109,9 @@ module.exports={
             })
       })
     },
-    update:(req,res)=>{
+    updateUser:(req,res)=>{
        const body = req.body
-       update(body,(error,results)=>{
+       updateUser(body,(error,results)=>{
          if(error){
               return res.json({
                 error:error,
@@ -63,9 +123,9 @@ module.exports={
             })
        })
     },
-    deleteSocieties:(req,res)=>{
+    deleteFlat:(req,res)=>{
        const body = req.params.id
-       deleteSocieties(body,(error,results)=>{
+       deleteFlat(body,(error,results)=>{
          if(error){
               return res.json({
                 error:error,
