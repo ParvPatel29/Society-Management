@@ -5,7 +5,7 @@ const SECRET_KEY = "sk_test_51MWzdISAP0cb61v5XVaKokWwShqXFUBmR62YKGtrhOdl3Oli6Sd
 const stripe = require('stripe')(SECRET_KEY)
 const express=require('express')
 const app = express()
-const {societies} = require('../../db_connect')
+const {Maintenance} = require('../../db_connect')
 
 const verifyToken = require('../../jwt')
 
@@ -30,7 +30,10 @@ const token={
 
 
 app.post('/pay', function (req, res) {
-    stripe.customers.create({
+    Maintenance.findOne({where:{stripeid:req.body.stripeid}})
+    .then(ans=>{
+    if(!ans){
+      stripe.customers.create({
         email: "karan@gmail.com",
         name: 'karan Patel',
         source: "tok_visa_debit",
@@ -56,6 +59,19 @@ app.post('/pay', function (req, res) {
         .catch((err) => {
             res.send(err)       // If some error occurs
         });
+    }
+    else{
+      stripe.charges.create({
+                amount: 5000,     // Charging Rs 25
+                description: 'Web Development Product',
+                currency: 'INR',
+                customer: customer.id
+            });
+     }   
+    }).catch(err=>{
+        res.json({data:err})
+    })
+   
 })
 
 module.exports=app

@@ -87,6 +87,7 @@ module.exports={
             where:{CarName:data}
         })
         .then(ans=>{
+            console.log(ans)
             callback(null,ans)
         })
         .catch(err=>{
