@@ -62,7 +62,7 @@ module.exports={
     },
     getAllByFlat:(data,callback)=>{
        User.findAll({
-            where:data.flatno
+            where:{FlatNo:data}
         })
         .then(ans=>{
             callback(null,ans)
@@ -73,7 +73,7 @@ module.exports={
     },
     getOne:(data,callback)=>{
        User.findAll({
-            where:data.email
+            where:{Email:data}
         })
         .then(ans=>{
             callback(null,ans)
@@ -84,7 +84,7 @@ module.exports={
     },
     getAllByCarName:(data,callback)=>{
        Car.findAll({
-            where:data.carname
+            where:{CarName:data}
         })
         .then(ans=>{
             callback(null,ans)
@@ -95,9 +95,11 @@ module.exports={
     },
     getAllByCarNo:(data,callback)=>{
        Car.findAll({
-            where:data.carno
+            where:{CarNo:data}
         })
         .then(ans=>{
+            //ans["Car"].dataValues.name="parv"
+            console.log(ans)
             callback(null,ans)
         })
         .catch(err=>{

@@ -71,7 +71,7 @@ module.exports={
       })
     },
     getAllByFlat:(req,res)=>{
-      const body = req.body
+      const body = req.params.id
       getAllByFlat(body,(error,results)=>{
          if(error){
               return res.json({
@@ -85,7 +85,7 @@ module.exports={
       })
     },
     getAllByCarName:(req,res)=>{
-      const body = req.body
+      const body = req.params.id
       getAllByCarName(body,(error,results)=>{
          if(error){
               return res.json({
@@ -99,7 +99,7 @@ module.exports={
       })
     },
     getAllByCarNo:(req,res)=>{
-      const body = req.body
+      const body = req.params.id
       getAllByCarNo(body,(error,results)=>{
          if(error){
               return res.json({
@@ -109,11 +109,11 @@ module.exports={
             }
             return res.status(200).json({
                 data:results
-            })
+            })       
       })
     },
     getOne:(req,res)=>{
-      const body = req.body
+      const body = req.params.id
       getOne(body,(error,results)=>{
          if(error){
               return res.json({
