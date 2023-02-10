@@ -1,7 +1,6 @@
 
-const { Sequelize } = require('sequelize')
+const { Sequelize, and } = require('sequelize')
 const {
-    sequelize,
    User,
    Car,
    Maintenance} = require('../../db_connect')
@@ -111,9 +110,13 @@ module.exports={
             where:{CarNo:data}
         })
         .then(ans=>{
-            //ans["Car"].dataValues.name="parv"
-            console.log(ans)
-            callback(null,ans)
+           const car_data=ans.map(car=>car.dataValues)[0]
+             const flat = car_data.FlatNo
+             const carname=car_data.CarName
+            User.findAll({where:{FlatNo:flat}})
+            .then(flat_no=>{callback(null,flat_no)})
+            .catch(err=>{callback(err)})
+            
         })
         .catch(err=>{
             callback(err)

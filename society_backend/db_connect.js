@@ -57,11 +57,6 @@ const Maintenance = sequelize.define('Maintenance', {
   }
 });
 
-
-User.belongsToMany(Car, { through: 'UserCar', foreignKey: 'Email' });
-Car.belongsToMany(User, { through: 'UserCar', foreignKey: 'CarNo' });
-
-
 sequelize.sync().then(()=>{
   console.log("Tables created in database successfully")
 }).catch(err=>{
