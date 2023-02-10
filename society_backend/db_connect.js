@@ -58,6 +58,8 @@ const Maintenance = sequelize.define('Maintenance', {
 });
 
 
+User.belongsToMany(Car, { through: 'UserCar', foreignKey: 'Email' });
+Car.belongsToMany(User, { through: 'UserCar', foreignKey: 'CarNo' });
 
 
 sequelize.sync().then(()=>{
@@ -66,6 +68,7 @@ sequelize.sync().then(()=>{
     console.log(err)
 })
 module.exports={
+  sequelize,
    User,
    Car,
    Maintenance

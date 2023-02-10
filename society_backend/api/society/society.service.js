@@ -1,5 +1,7 @@
 
+const { Sequelize } = require('sequelize')
 const {
+    sequelize,
    User,
    Car,
    Maintenance} = require('../../db_connect')
@@ -60,16 +62,26 @@ module.exports={
             callback(err)
         })
     },
-    getAllByFlat:(data,callback)=>{
-       User.findAll({
-            where:{FlatNo:data}
-        })
-        .then(ans=>{
-            callback(null,ans)
-        })
-        .catch(err=>{
-            callback(err)
-        })
+    getAllByFlat:async (data,callback)=>{
+            try {
+                const users = await User.findAll({
+                //attributes: ['UserName', 'email'],
+                where: {FlatNo: data}
+                });
+
+                const cars = await Car.findAll({
+                //attributes: ['carno', 'carname'],
+                where: {    FlatNo: data}
+                });
+                const combinedData = {
+                users: users,
+                cars: cars
+                };
+                console.log(combinedData)
+                callback(null,combinedData)
+            } catch (error) {
+               callback(error)
+            }
     },
     getOne:(data,callback)=>{
        User.findAll({
